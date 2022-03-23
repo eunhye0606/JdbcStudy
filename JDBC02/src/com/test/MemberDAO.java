@@ -12,7 +12,10 @@
 package com.test;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.util.DBConn;
 
@@ -42,6 +45,10 @@ public class MemberDAO
 	
 	
 	
+	//※ 성이 박씨만 조회, 이름을 선택하면 이름으로 정렬..
+	//   조건이 붙으면 매개변수를 받아야함.
+	
+	
 	
 	//②생성자 정의(사용자 정의 생성자)
 	public MemberDAO() throws ClassNotFoundException, SQLException
@@ -52,34 +59,118 @@ public class MemberDAO
 	
 	//③ 메소드 정의 → (1). 데이터를 입력하는 기능 → insert
 	//   insert → executeUpdate() → 적용된 행 수 반환.
-	public int void add(MemberDTO dto)
+	public int add(MemberDTO dto) throws SQLException
 	{
-		//반환할 결과값을 담아낼 변수(적용된 행의 갯수)
-		//작업 객체 생성
-		//(생성된 작업객체에게 넘겨줄) 쿼리문 준비
-		//작업 객체를 활용하여 쿼리문 실행(전달):execute
-		//사용한 리소스 반납
-		//최종 결과값 반환(적용된 행의 갯수)
+		//(1).반환할 결과값을 담아낼 변수(적용된 행의 갯수)
+		int result = 0;
+		
+		//(2).작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		//(3).(생성된 작업객체에게 넘겨줄) 쿼리문 준비 (insert)
+		String sql = String.format("INSERT INTO TBL_MEMBER(SID, NAME, TEL)"
+				+ " VALUES(MEMBERSEQ.NEXTVAL, '%s','%s')",dto.getName(),dto.getTel());
+		
+		//(4).작업 객체를 활용하여 쿼리문 실행(전달):execute
+		result = stmt.executeUpdate(sql);
+		
+		//(5).사용한 리소스 반납
+		stmt.close();
+		
+		//(6).최종 결과값 반환(적용된 행의 갯수)
+		return result;
+	}//end add()
+	
+	
+	
+	
+	//③ 메소드 정의 → (2) 전체 인원 수 확인하는 기능 → select 
+	public int count() throws SQLException
+	{
+		// (1).결과값으로 반환하게 될 변수 선언 및 초기화
+		int result = 0;
+		
+		// (2).작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		// (3).(작업 객체에게 넘길) 쿼리문 준비 → select
+		// select 문의 연산은 AS를 꼭 붙혀
+		String sql = "SELECT COUNT(*) AS COUNT FROM TBL_MEMBER";
+		
+		// (4).생성된 작업 객체를 활용하여 쿼리문 실행 → select
+		// executeQuery() → ResultSet → 반복문을 통한 ResultSet 처리
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		
+		//이 반복문은 한번 돈다.
+		//여러번 돌 때 → 반복문
+		//한번 돌 때 → 조건문
+		/*
+		 * while (rs.next()) { result = rs.getInt("COUNT"); }
+		 */
+		//rs.getInt(1) : select의 1번컬럼.
+		//오라클 컬럼 : 1부터 / 자바 컬럼 : 0부터
+		if (rs.next())
+		{
+			result = rs.getInt("COUNT"); //rs.getInt(1) : select의 1번컬럼.
+		}
+		
+		// (5).리소스 반납(나중에 연걸 먼저 닫기)
+		rs.close();
+		stmt.close();
+		
+		// (6).최종 결과값 반환
+		return result;	
+	}//end count()
+	
+	
+	
+	
+	//③ 메소드 정의 → (3) 전체 리스트 조회하는 기능 → select
+	public ArrayList<MemberDTO> lists() throws SQLException
+	{
+		// (1). 결과값으로 반환할 변수 선언 및 초기화
+		// ArrayList안에 DTO,DTO,DTO....
+		// 지금은 빈DTO들..
+		ArrayList<MemberDTO> result = new ArrayList<MemberDTO>();
+		
+		// (2). 작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		// (3). (작업 객체로 넘겨줄) 쿼리문 준비 → select
+		String sql = "SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID";
+		
+		// (4). 생성된 작업 객체를 활용하여 쿼리문 실행 → select → executeQuery() → ResultSet
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next())
+		{
+			//하나의 DTO에
+			MemberDTO dto = new MemberDTO();
+			
+			//값담기
+			dto.setSid(rs.getString("SID"));
+			dto.setName(rs.getString("NAME"));
+			dto.setTel(rs.getString("TEL"));
+			
+			//값이 담긴 dto를 ArrayList에 넣기.
+			result.add(dto);
+			
+		}
+		
+		// (5). 리소스 반납
+		rs.close();
+		stmt.close();
+		
+		// (6).최종 결과값 반환
+		return result;
+	}//end lists()
+	
+	//④ dbconn의 close()를 써두 대고 여기서 다시 정의해도되고
+	public void close() throws SQLException
+	{
+		//conn.close(); → 이러면 안돼. 
+		DBConn.close();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 // 내가한거
 //-----------------------------------------------------------
 
@@ -158,4 +249,4 @@ public class MemberDAO
  * }
  */
 //-----------------------------------------------------------
-}
+}//end class MemberDAO
