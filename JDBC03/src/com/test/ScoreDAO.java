@@ -50,21 +50,21 @@ public class ScoreDAO
 	//② 조회하기
 	public ArrayList<ScoreDTO> select()
 	{
+		
 		//(1).주요 변수 선언
 		ArrayList<ScoreDTO> array = new ArrayList<ScoreDTO>();
-		
-		//(2).작업 객체 생성
-		Statement stmt = conn.createStatement();
-		
-		//(3). 쿼리문 준비
-		String sql = "SELECT SID, NAME, KOR, ENG, MAT FROM TBL_SCORE";
-		
-		ResultSet rs;
 		try
 		{
-			//(4). 쿼리문 실행
-			rs = stmt.executeQuery(sql);
+			//(2).작업 객체 생성
+			Statement stmt = conn.createStatement();
 			
+			//(3). 쿼리문 준비
+			String sql = "SELECT SID, NAME, KOR, ENG, MAT FROM TBL_SCORE ORDER BY SID";
+			
+			//(4). 쿼리문 실행
+			ResultSet rs = stmt.executeQuery(sql);
+				
+				
 			while (rs.next())
 			{
 				//빈 ScoreDTO 준비
@@ -82,19 +82,55 @@ public class ScoreDAO
 				array.add(dto);
 				
 			}
+
+			//(5). 리소스 반납
+			rs.close();
+			stmt.close();
+
+
 		}
-		catch (SQLException e)
+		catch(SQLException e)
 		{
 			System.out.println(e.toString());
-			e1.printStackTrace();
 		}
-
-		//(5). 리소스 반납
-		rs.close();
-		stmt.close();
-		
 		//(6).값 반환
 		return array;
+	
+	}//end select()
+	
+	//③전체학생 수 조회
+	public int count()
+	{
+		//변수선언
+		int inwon = 0;
+		try
+		{
+			//작업객체
+			Statement stmt = conn.createStatement();
+			
+			//쿼리문 준비
+			String sql = "SELECT COUNT(*) AS COUNT FROM TBL_SCORE";
+			
+			//쿼리문 실행
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			if (rs.next())
+			{
+				inwon = rs.getInt("COUNT");
+			}
+			
+			//리소스 반납
+			rs.close();
+			stmt.close();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+
+		return inwon;
+		
 	}
 
 }

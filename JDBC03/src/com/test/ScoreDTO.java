@@ -5,7 +5,9 @@ public class ScoreDTO
 	//주요 변수 선언
 	//insert 로 넘겨주는 변수들 : sid,name,kor,eng,mat,sum,avg
 	
-	private int sid, kor,eng,mat,sum,avg;
+	private int sid, kor,eng,mat,sum;
+	private double avg;
+	
 	
 	private String name;
 
@@ -72,14 +74,15 @@ public class ScoreDTO
 		this.sum = kor + eng + mat;
 	}
 
-	public int getAvg()
+	public double getAvg()
 	{
 		return avg;
 	}
 
 	public void setAvg(int kor, int eng, int mat)
 	{
-		this.avg = (kor + eng + mat) / 3;
+		this.avg = (kor + eng + mat) / 3.0;
+
 	}
 	
 	
