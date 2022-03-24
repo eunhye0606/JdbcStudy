@@ -490,14 +490,12 @@ SELECT BUSEO_ID FROM TBL_BUSEO WHERE BUSEO_NAME = '총무부'
 ;
 
 --직위이름으로 직위번호 찾기
-SELECT JIKWI_ID
-FROM TBL_JIKWI
-WHERE JIKWI_NAME = '대리';
+SELECT JIKWI_ID FROM TBL_JIKWI WHERE JIKWI_NAME = '대리'
+;
 
 --지역이름으로 지역번호 찾기
-SELECT CITY_ID
-FROM TBL_CITY
-WHERE CITY_NAME = '서울';
+SELECT CITY_ID FROM TBL_CITY WHERE CITY_NAME = '서울'
+;
 
 
 
@@ -550,3 +548,197 @@ DELETE FROM TBL_EMP WHERE EMP_ID = 1001
 SELECT COUNT(*) AS COUNT FROM TBL_EMP;
 
 commit;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--1번 직원 정보 입력
+--① 입력
+INSERT INTO TBL_EMP(EMP_ID,EMP_NAME,SSN,IBSADATE,CITY_ID,TEL,BUSEO_ID,JIKWI_ID,BASICPAY,SUDANG)
+VALUES(EMPSEQ.NEXTVAL,'신하리','960812-2345678','2000-04-05',1,'010-1234-1234',1,1,80000000,600000);
+--> 한 줄 구성
+INSERT INTO TBL_EMP(EMP_ID,EMP_NAME,SSN,IBSADATE,CITY_ID,TEL,BUSEO_ID,JIKWI_ID,BASICPAY,SUDANG) VALUES(EMPSEQ.NEXTVAL,'신하리','960812-2345678','2000-04-05',1,'010-1234-1234',1,1,80000000,600000)
+;
+
+--② 지역출력
+SELECT CITY_NAME
+FROM TBL_CITY;
+--> 한 줄 구성
+SELECT CITY_NAME FROM TBL_CITY
+;
+
+--③ 부서출력
+SELECT BUSEO_NAME
+FROM TBL_BUSEO;
+--> 한 줄 구성
+SELECT BUSEO_NAME FROM TBL_BUSEO
+;
+
+
+--④ 직위출력
+SELECT JIKWI_NAME
+FROM TBL_JIKWI;
+--> 한 줄 구성
+SELECT JIKWI_NAME FROM TBL_JIKWI
+;
+
+--⑤ 직위별 기본급 출력
+SELECT TO_CHAR(MIN_BASICPAY,'999,999,999') AS MIN
+FROM TBL_JIKWI
+WHERE JIKWI_NAME = '사원';
+--> 한 줄 구성
+SELECT TO_CHAR(MIN_BASICPAY,'999,999,999') AS MIN FROM TBL_JIKWI WHERE JIKWI_NAME = '사원'
+;
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--2번 직원 전체 출력
+/*
+    - 사번 정렬
+    - 이름 정렬
+    - 부서 정렬
+    - 직위 정렬 
+    - 급여 내림차순 정렬
+*/
+
+--① 직원 전체 출력 (사번 정렬)
+CREATE VIEW EMPVIEW
+AS
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG
+    ,(BASICPAY+SUDANG) AS PAY
+FROM TBL_EMP E JOIN TBL_CITY C
+ON E.CITY_ID = C.CITY_ID JOIN TBL_BUSEO B
+ON E.BUSEO_ID = B.BUSEO_ID JOIN TBL_JIKWI J
+ON E.JIKWI_ID = J.JIKWI_ID;
+
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+ORDER BY EMP_ID;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW ORDER BY EMP_ID
+;
+
+--② 직원 전체 출력 (이름 정렬)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+ORDER BY EMP_NAME;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW ORDER BY EMP_NAME
+;
+--③ 직원 전체 출력 (부서 정렬)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+ORDER BY BUSEO_NAME;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW ORDER BY BUSEO_NAME
+;
+--④ 직원 전체 출력 (직위 정렬)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+ORDER BY JIKWI_NAME;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW ORDER BY JIKWI_NAME
+;
+--⑤ 직원 전체 출력 (급여 내림차순 정렬)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+ORDER BY PAY DESC;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW ORDER BY PAY DESC
+;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--3번 직원 검색 출력
+/*
+    - 사번 검색
+    - 이름 검색
+    - 부서 검색
+    - 직위 검색
+*/
+--① 직원 검색 (사번 검색)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+WHERE EMP_ID = 1038;
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW WHERE EMP_ID = 1038
+;
+--② 직원 검색 (이름 검색)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+WHERE EMP_NAME = '신하리';
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW WHERE EMP_NAME = '신하리'
+;
+--③ 직원 검색 (부서 검색)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+WHERE BUSEO_NAME = '개발부';
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW WHERE BUSEO_NAME = '개발부'
+;
+--④ 직원 검색 (직위 검색)
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY
+FROM EMPVIEW
+WHERE JIKWI_NAME = '사장';
+--> 한 줄 구성
+SELECT EMP_ID,EMP_NAME,SSN, IBSADATE,CITY_NAME,TEL,BUSEO_NAME,JIKWI_NAME,BASICPAY,SUDANG, PAY FROM EMPVIEW WHERE JIKWI_NAME = '사장'
+;
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--4번 직원 정보 수정
+UPDATE TBL_EMP
+SET EMP_NAME = '강태무',SSN = '940505-1234567'
+, IBSADATE='2003-06-20'
+,CITY_ID = 2,TEL = '010-3434-3232'
+,BUSEO_ID = 2
+,JIKWI_ID = 2
+,BASICPAY = 7000000
+,SUDANG = 900000
+WHERE EMP_ID = 1032;
+--> 한 줄 구성
+UPDATE TBL_EMP SET EMP_NAME = '강태무',SSN = '940505-1234567' , IBSADATE='2003-06-20' ,CITY_ID = 2,TEL = '010-3434-3232' ,BUSEO_ID = 2 ,JIKWI_ID = 2 ,BASICPAY = 7000000 ,SUDANG = 900000 WHERE EMP_ID = 1032
+;
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--5번 직원 정보 삭제
+DELETE
+FROM TBL_EMP
+WHERE EMP_ID = 1061;
+--> 한 줄 구성
+DELETE FROM TBL_EMP WHERE EMP_ID = 1061
+;
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- 전체 인원 수 출력
+SELECT COUNT(*)
+FROM TBL_EMP;
+--==>>60
+
+--> 한 줄 구성
+SELECT COUNT(*) AS COUNT FROM TBL_EMP
+;
+
+
+--커밋
+COMMIT;
+--==>>커밋 완료.
+SELECT COUNT(*)
+FROM TBL_EMP;
+
+COMMIT;
+

@@ -1,29 +1,29 @@
 /*========================
 	MemberDTO.java
 =========================*/
-//사번  이름  주민번호  입사일  지역  
-//전화번호  부서  직위  기본급  수당  급여
 package com.test;
 
 public class MemberDTO
 {
-	//주요 변수 선언
-	// id : 1001, 1002
-	//city : 경기, 서울...
-	//buseo : 기획부...
-	//jikwi : 사장, 부장...
-	private String id, name, ssn, ibsadate, city, tel, buseo,jikwi,basicpay,sudang, pay;
+	private String empid
+					,name, ssn, ibsadate, tel, basicpay, sudang, pay
+					,city_name, buseo_name, jikwi_name;
+	
+	private int city_id, buseo_id, jikwi_id;
 
 	
-	//getter / setter
-	public String getId()
+	
+	
+	
+	// getter / setter
+	public String getEmpid()
 	{
-		return id;
+		return empid;
 	}
 
-	public void setId(String id)
+	public void setEmpid(String empid)
 	{
-		this.id = id;
+		this.empid = empid;
 	}
 
 	public String getName()
@@ -56,16 +56,6 @@ public class MemberDTO
 		this.ibsadate = ibsadate;
 	}
 
-	public String getCity()
-	{
-		return city;
-	}
-
-	public void setCity(String city)
-	{
-		this.city = city;
-	}
-
 	public String getTel()
 	{
 		return tel;
@@ -74,26 +64,6 @@ public class MemberDTO
 	public void setTel(String tel)
 	{
 		this.tel = tel;
-	}
-
-	public String getBuseo()
-	{
-		return buseo;
-	}
-
-	public void setBuseo(String buseo)
-	{
-		this.buseo = buseo;
-	}
-
-	public String getJikwi()
-	{
-		return jikwi;
-	}
-
-	public void setJikwi(String jikwi)
-	{
-		this.jikwi = jikwi;
 	}
 
 	public String getBasicpay()
@@ -125,8 +95,70 @@ public class MemberDTO
 	{
 		this.pay = pay;
 	}
-	
-	
-	
 
-}
+	public String getCity_name()
+	{
+		return city_name;
+	}
+
+	public void setCity_name(String city_name)
+	{
+		this.city_name = city_name;
+	}
+
+	public String getBuseo_name()
+	{
+		return buseo_name;
+	}
+
+	public void setBuseo_name(String buseo_name)
+	{
+		this.buseo_name = buseo_name;
+	}
+
+	public String getJikwi_name()
+	{
+		return jikwi_name;
+	}
+
+	public void setJikwi_name(String jikwi_name)
+	{
+		this.jikwi_name = jikwi_name;
+	}
+
+	public int getCity_id()
+	{
+		return city_id;
+	}
+
+	public void setCity_id(int city_id)
+	{
+		this.city_id = city_id;
+	}
+
+	public int getBuseo_id()
+	{
+		return buseo_id;
+	}
+
+	public void setBuseo_id(int buseo_id)
+	{
+		this.buseo_id = buseo_id;
+	}
+
+	public int getJikwi_id()
+	{
+		return jikwi_id;
+	}
+
+	public void setJikwi_id(int jikwi_id)
+	{
+		this.jikwi_id = jikwi_id;
+	}
+	
+	
+	
+	
+	
+	
+}//end class MemberDTO
