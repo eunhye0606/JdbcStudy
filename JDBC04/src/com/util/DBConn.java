@@ -16,8 +16,9 @@ public class DBConn
 	{
 		if(dbconn == null)
 		//////////////////
-		{
-			String url ="jdbc:oracle:thin:@local:1521:xe";
+		{                
+			String url ="jdbc:oracle:thin:@localhost:1521:xe";
+											////////
 			String user = "scott";
 			String pw = "tiger";
 			

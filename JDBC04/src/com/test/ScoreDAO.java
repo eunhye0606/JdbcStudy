@@ -217,10 +217,57 @@ public class ScoreDAO
 		//거기서 sid를 찾는 것.
 		// 누구를 어떻게 바꾼다. (누구를 : lists()_번호검색)
 		//여기는 set 뒷 부분 담당.
-		public void modify(ScoreDTO)
+		public int modify(ScoreDTO dto) throws SQLException
 		{
+			//(1).주요 변수 선언
+			int result = 0;
 			
-		}
+			//(2).작업객체생성
+			Statement stmt = conn.createStatement();
+			
+			//(3).쿼리문준비
+			String sql = String.format("UPDATE TBL_SCORE SET NAME = '%s', KOR = %d, ENG = %d, MAT=%d WHERE SID = %s"
+					, dto.getName(),dto.getKor(),dto.getEng(),dto.getMat(),dto.getSid());
+			//(4).쿼리문실행
+			result = stmt.executeUpdate(sql);
+			//(5).리소스반환
+			stmt.close();
+			//(6).값 반환
+			return result;
+		}//end modify()
+		
+		
+		
+		
+		
+		// 데이터 삭제 담당 메소드
+		public int remove(int sid) throws SQLException
+		{
+			//(1).주요 변수 선언
+			int result = 0;
+			
+			//(2).작업 객체 생성
+			Statement stmt = conn.createStatement();
+			
+			//(3). 쿼리문 준비
+			String sql = String.format("DELETE FROM TBL_SCORE WHERE SID = %s"
+					, sid);
+			//(4). 쿼리문 실행
+			result = stmt.executeUpdate(sql);
+			
+			//(5). 리소스 반납
+			stmt.close();
+			
+			//(6).값 반환
+			return result;
+		}//end remove()
+		
+		
+		//데이터베이스 연결 종료 담당 메소드
+		public void close() throws SQLException
+		{
+			DBConn.close();
+		}//end close()
 	
 	
 }

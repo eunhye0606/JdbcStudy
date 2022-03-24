@@ -144,3 +144,5 @@ ROLLBACK;
 SELECT *
 FROM TBL_SCORE;
 --==>>롤백 완료.
+
+COMMIT;

@@ -9,6 +9,9 @@ public class ScoreDTO
 {
 	//주요 속성 구성
 	private String sid, name;		//-- 번호, 이름
+	//※ 『sid』는 따로 연산이 필요한게 아니므로 String 타입으로 선언.
+	//    추후 오버로딩.
+	
 	private int kor,eng,mat;		//-- 국어점수, 영어점수, 수학점
 	private int tot,rank;			//-- 총점, 석차
 	private double avg;				//-- 평균
