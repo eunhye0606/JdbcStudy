@@ -2,15 +2,15 @@
 <section name="Workbench">
 	<item key="org.eclipse.jdt.ui.codeformatter.create_profile_dialog.open_edit" value="true"/>
 	<item key="org.eclipse.jdt.ui.codeformatter.line_wrapping_tab_page.preview_line_width" value="40"/>
-	<item key="org.eclipse.jdt.uiformatter_page.last_focus_index" value="23"/>
+	<item key="org.eclipse.jdt.uiformatter_page.last_focus_index" value="390"/>
 	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_width" value="1083"/>
 	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_height" value="646"/>
-	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x" value="571"/>
-	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y" value="153"/>
+	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x" value="816"/>
+	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y" value="131"/>
 	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.sash_form_left_width" value="464"/>
 	<item key="org.eclipse.jdt.uiformatter_pagemodify_dialog.sash_form_rigth_width" value="574"/>
-	<item key="org.eclipse.jdt.uiformatter_page.preference_tree_expansion" value="00.0..0.0.000.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0.0..00.0.0.0..00.0.0.0...00.0.0..000.0..0.0..000.0.0.0.0.0.0.0.0.0.0...00.0..0.."/>
-	<item key="org.eclipse.jdt.uiformatter_page.preference_scroll_position" value="0"/>
+	<item key="org.eclipse.jdt.uiformatter_page.preference_tree_expansion" value="00.0..0.0.000.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0.0..00.0.0.0..00.0.0.0...00.0.0..100.0..0.0..100.0.0.0.0.0.0.0.0.0.0...10.0..0.."/>
+	<item key="org.eclipse.jdt.uiformatter_page.preference_scroll_position" value="570"/>
 	<item key="org.eclipse.jdt.ui.last.selected.jre.kind2" value="2"/>
 	<item key="org.eclipse.jdt.ui.last.selected.execution.enviroment" value="JavaSE-1.8"/>
 	<item key="filters_last_used" value="filter_imports;"/>
@@ -81,5 +81,12 @@
 			<list key="workingSets">
 			</list>
 		</section>
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.preferences.EditTemplateDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="45"/>
+		<item key="DIALOG_Y_ORIGIN" value="79"/>
+		<item key="DIALOG_WIDTH" value="717"/>
+		<item key="DIALOG_HEIGHT" value="381"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
 	</section>
 </section>

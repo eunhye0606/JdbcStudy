@@ -20,11 +20,15 @@ public class DBConn
 		{
 			if (dbconn == null)
 			{
-				String url = "jdbc:orcla:@localhost:1521:xe";
+				String url = "jdbc:oracle:thin:@localhost:1521:xe";
+										 ///////////////
+										//여기만 IP주소로 바꾸면됨.
+										//localhost  = 127로 시작하는 ip 주소
+										//Loop back address : 자기자신을 검사하는 주소
 				String user = "scott";
 				String pw = "tiger";
 				
-				Class.forName("orcla.jdbc.driver.OracleDriver");
+				Class.forName("oracle.jdbc.driver.OracleDriver");
 				dbconn = DriverManager.getConnection(url, user, pw);
 			}
 			
@@ -53,7 +57,7 @@ public class DBConn
 	}
 	
 	// 닫는 메소드 정의
-	public void close()
+	public static void close()
 	{
 		if (dbconn != null)
 		{

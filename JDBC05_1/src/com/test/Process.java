@@ -244,12 +244,12 @@ public class Process
 			}
 			else if(num == 3)
 			{
-				System.out.println("검색할 부서 입력 : ");
+				System.out.print("검색할 부서 입력 : ");
 				str = sc.next();
 			}
 			else if(num == 4)
 			{
-				System.out.println("검색할 직위 입력 : ");
+				System.out.print("검색할 직위 입력 : ");
 				str = sc.next();
 			}
 			
@@ -300,7 +300,7 @@ public class Process
 		
 		String bPay = "";
 		
-		System.out.print("검색할 사번 입력 : ");
+		System.out.print("수정할 사번 입력 : ");
 		empid = sc.next();
 		
 		System.out.print("바꿀 이름 입력 : ");
