@@ -1,6 +1,6 @@
 package com.test;
 
-public class Test001
+public class ScoreDAO
 {
 
 }
